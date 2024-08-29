@@ -133,6 +133,54 @@
             "problemMatcher": []
         },
         {
+            "label": "Debug: Excel Desktop",
+            "type": "npm",
+            "script": "start -- --app excel",
+            "options": {
+                "cwd": "${workspaceFolder}/add-in/"
+            },
+            "dependsOn": [
+              "Install"
+            ],
+            "presentation": {
+              "clear": true,
+              "panel": "dedicated"
+            },
+            "problemMatcher": []
+          },
+          {
+            "label": "Debug: PowerPoint Desktop",
+            "type": "npm",
+            "script": "start -- --app powerpoint",
+            "options": {
+                "cwd": "${workspaceFolder}/add-in/"
+            },
+            "dependsOn": [
+              "Install"
+            ],
+            "presentation": {
+              "clear": true,
+              "panel": "dedicated"
+            },
+            "problemMatcher": []
+          },
+          {
+            "label": "Debug: Word Desktop",
+            "type": "npm",
+            "script": "start -- --app word",
+            "options": {
+                "cwd": "${workspaceFolder}/add-in/"
+            },
+            "dependsOn": [
+              "Install"
+            ],
+            "presentation": {
+              "clear": true,
+              "panel": "dedicated"
+            },
+            "problemMatcher": []
+          },
+        {
             "label": "Dev Server",
             "type": "npm",
             "script": "dev-server",
@@ -209,10 +257,38 @@
             "problemMatcher": []
         },
         {
+            // Create the debug resources.
+            // See https://aka.ms/teamsfx-tasks/provision to know the details and how to customize the args.
+            "label": "Create resources",
+            "type": "teamsfx",
+            "command": "provision",
+            "args": {
+                "template": "${workspaceFolder}/teamsapp.local.yml",
+                "env": "local"
+            }
+        },
+        {
             "label": "Start Add-in Locally",
             "dependsOn": [
                 "Create resources",
                 "Debug: Outlook Desktop"
+            ],
+            "dependsOrder": "sequence"
+        },
+        {
+            "label": "Start Excel Add-in Locally",
+            "dependsOn": [
+                "Create resources",
+                "Debug: Excel Desktop"
+            ],
+            "dependsOrder": "sequence"
+        },
+        {
+            "label": "Start App and Excel Add-in Locally",
+            "dependsOn": [
+                "Start Teams App Locally",
+                // "Attach to Frontend (Edge)",
+                "Start Excel Add-in Locally"
             ],
             "dependsOrder": "sequence"
         },

@@ -56,11 +56,16 @@
                 {
                     "name": "MailboxItem.Read.User",
                     "type": "Delegated"
+                },
+                {
+                    "name": "Document.ReadWrite.User",
+                    "type": "Delegated"
                 }
             ]
         }
     },
     "validDomains": [
+        "${{ADDIN_DOMAIN}}",
         "${{TAB_DOMAIN}}",
         "contoso.com"
     ],
@@ -68,13 +73,10 @@
         {
             "requirements": {
                 "scopes": [
-                    "mail"
-                ],
-                "capabilities": [
-                    {
-                        "name": "Mailbox",
-                        "minVersion": "1.3"
-                    }
+                    "mail",
+                    "workbook",
+                    "document",
+                    "presentation"
                 ]
             },
             "runtimes": [
@@ -87,10 +89,26 @@
                             }
                         ]
                     },
+                    "id": "TaskPaneRuntimeMail",
+                    "type": "general",
+                    "code": {
+                        "page": "https://localhost:3000/taskpane.html"
+                    },
+                    "lifetime": "short",
+                    "actions": [
+                        {
+                            "id": "TaskPaneRuntimeShowMail",
+                            "type": "openPage",
+                            "pinnable": false,
+                            "view": "dashboard"
+                        }
+                    ]
+                },
+                {
                     "id": "TaskPaneRuntime",
                     "type": "general",
                     "code": {
-                        "page": "https://localhost:53000/taskpane.html"
+                        "page": "https://localhost:3000/taskpane.html"
                     },
                     "lifetime": "short",
                     "actions": [
@@ -106,8 +124,8 @@
                     "id": "CommandsRuntime",
                     "type": "general",
                     "code": {
-                        "page": "https://localhost:53000/commands.html",
-                        "script": "https://localhost:53000/commands.js"
+                        "page": "https://localhost:3000/commands.html",
+                        "script": "https://localhost:3000/commands.js"
                     },
                     "lifetime": "short",
                     "actions": [
@@ -134,15 +152,15 @@
                                     "icons": [
                                         {
                                             "size": 16,
-                                            "url": "https://localhost:53000/assets/icon-16.png"
+                                            "url": "https://localhost:3000/assets/icon-16.png"
                                         },
                                         {
                                             "size": 32,
-                                            "url": "https://localhost:53000/assets/icon-32.png"
+                                            "url": "https://localhost:3000/assets/icon-32.png"
                                         },
                                         {
                                             "size": 80,
-                                            "url": "https://localhost:53000/assets/icon-80.png"
+                                            "url": "https://localhost:3000/assets/icon-80.png"
                                         }
                                     ],
                                     "controls": [
@@ -153,15 +171,95 @@
                                             "icons": [
                                                 {
                                                     "size": 16,
-                                                    "url": "https://localhost:53000/assets/icon-16.png"
+                                                    "url": "https://localhost:3000/assets/icon-16.png"
                                                 },
                                                 {
                                                     "size": 32,
-                                                    "url": "https://localhost:53000/assets/icon-32.png"
+                                                    "url": "https://localhost:3000/assets/icon-32.png"
                                                 },
                                                 {
                                                     "size": 80,
-                                                    "url": "https://localhost:53000/assets/icon-80.png"
+                                                    "url": "https://localhost:3000/assets/icon-80.png"
+                                                }
+                                            ],
+                                            "supertip": {
+                                                "title": "Show Taskpane",
+                                                "description": "Opens a pane displaying all available properties."
+                                            },
+                                            "actionId": "TaskPaneRuntimeShowMail"
+                                        },
+                                        {
+                                            "id": "ActionButton",
+                                            "type": "button",
+                                            "label": "Perform an action",
+                                            "icons": [
+                                                {
+                                                    "size": 16,
+                                                    "url": "https://localhost:3000/assets/icon-16.png"
+                                                },
+                                                {
+                                                    "size": 32,
+                                                    "url": "https://localhost:3000/assets/icon-32.png"
+                                                },
+                                                {
+                                                    "size": 80,
+                                                    "url": "https://localhost:3000/assets/icon-80.png"
+                                                }
+                                            ],
+                                            "supertip": {
+                                                "title": "Perform an action",
+                                                "description": "Perform an action when clicked."
+                                            },
+                                            "actionId": "action"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "contexts": [
+                        "default"
+                    ],
+                    "tabs": [
+                        {
+                            "builtInTabId": "TabHome",
+                            "groups": [
+                                {
+                                    "id": "msgReadGroup",
+                                    "label": "Contoso Add-in",
+                                    "icons": [
+                                        {
+                                            "size": 16,
+                                            "url": "https://localhost:3000/assets/icon-16.png"
+                                        },
+                                        {
+                                            "size": 32,
+                                            "url": "https://localhost:3000/assets/icon-32.png"
+                                        },
+                                        {
+                                            "size": 80,
+                                            "url": "https://localhost:3000/assets/icon-80.png"
+                                        }
+                                    ],
+                                    "controls": [
+                                        {
+                                            "id": "msgReadOpenPaneButton",
+                                            "type": "button",
+                                            "label": "Show Taskpane",
+                                            "icons": [
+                                                {
+                                                    "size": 16,
+                                                    "url": "https://localhost:3000/assets/icon-16.png"
+                                                },
+                                                {
+                                                    "size": 32,
+                                                    "url": "https://localhost:3000/assets/icon-32.png"
+                                                },
+                                                {
+                                                    "size": 80,
+                                                    "url": "https://localhost:3000/assets/icon-80.png"
                                                 }
                                             ],
                                             "supertip": {
@@ -177,15 +275,15 @@
                                             "icons": [
                                                 {
                                                     "size": 16,
-                                                    "url": "https://localhost:53000/assets/icon-16.png"
+                                                    "url": "https://localhost:3000/assets/icon-16.png"
                                                 },
                                                 {
                                                     "size": 32,
-                                                    "url": "https://localhost:53000/assets/icon-32.png"
+                                                    "url": "https://localhost:3000/assets/icon-32.png"
                                                 },
                                                 {
                                                     "size": 80,
-                                                    "url": "https://localhost:53000/assets/icon-80.png"
+                                                    "url": "https://localhost:3000/assets/icon-80.png"
                                                 }
                                             ],
                                             "supertip": {

@@ -54,11 +54,59 @@
                 "hidden": true
             },
             "internalConsoleOptions": "neverOpen"
-        }
+        },
+        {
+            "name": "Launch Add-in Excel Desktop (Edge Chromium)",
+            "type": "msedge",
+            "request": "attach",
+            "port": 9229,
+            "timeout": 600000,
+            "webRoot": "${workspaceRoot}",
+            "preLaunchTask": "Start Excel Add-in Locally",
+            "postDebugTask": "Stop Debug"
+        },
+        {
+            "name": "Launch App and Add-in Excel Desktop (Edge Chromium)",
+            "type": "msedge",
+            "request": "attach",
+            "port": 9229,
+            "timeout": 600000,
+            "webRoot": "${workspaceRoot}",
+            "preLaunchTask": "Start App and Excel Add-in Locally",
+            "postDebugTask": "Stop Debug"
+        },
+        {
+            "name": "Attach to Frontend in Excel (Edge)",
+            "type": "msedge",
+            "request": "launch",
+            "url": "https://excel.office.com/host/${{local:M365_APP_ID}}?${account-hint}",
+            "cascadeTerminateToConfigurations": [
+                "Attach to Local Service"
+            ],
+            "presentation": {
+                "group": "all",
+                "hidden": true
+            },
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "name": "Attach to Frontend in Excel (Chrome)",
+            "type": "chrome",
+            "request": "launch",
+            "url": "https://excel.office.com/host/${{local:M365_APP_ID}}?${account-hint}",
+            "cascadeTerminateToConfigurations": [
+                "Attach to Local Service"
+            ],
+            "presentation": {
+                "group": "all",
+                "hidden": true
+            },
+            "internalConsoleOptions": "neverOpen"
+        },
     ],
     "compounds": [
         {
-            "name": "Debug in Teams (Edge)",
+            "name": "Launch App Debug (Edge)",
             "configurations": [
                 "Attach to Frontend (Edge)"
             ],
@@ -70,13 +118,39 @@
             "stopAll": true
         },
         {
-            "name": "Debug in Teams (Chrome)",
+            "name": "Launch App Debug (Chrome)",
             "configurations": [
                 "Attach to Frontend (Chrome)"
             ],
             "preLaunchTask": "Start Teams App Locally",
             "presentation": {
                 "group": "all",
+                "order": 2
+            },
+            "stopAll": true
+        },
+        {
+            "name": "Debug in Excel (Edge)",
+            "configurations": [
+                "Attach to Frontend in Excel (Edge)",
+                "Attach to Local Service"
+            ],
+            "preLaunchTask": "Start Excel Add-in Locally",
+            "presentation": {
+                "group": "group 4: Excel",
+                "order": 1
+            },
+            "stopAll": true
+        },
+        {
+            "name": "Debug in Excel (Chrome)",
+            "configurations": [
+                "Attach to Frontend in Excel (Chrome)",
+                "Attach to Local Service"
+            ],
+            "preLaunchTask": "Start Excel Add-in Locally",
+            "presentation": {
+                "group": "group 4: Excel",
                 "order": 2
             },
             "stopAll": true
